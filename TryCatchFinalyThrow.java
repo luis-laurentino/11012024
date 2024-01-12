@@ -1,36 +1,44 @@
-import java.util.*;
-public class TryCatchFinalyThrow {
-    public static void verificarIdade(short idade){
-        if (idade >= 18){
-            System.out.println("Acesso garantido");
+public class TryCatch3 {
+    
+    public static void verificarTempo(int tempo){
+    
+        if (tempo < 2){
+
+            System.out.println("\n \nVocê ainda pode assistir 1 minuto no periodo de teste.\n \n");
         } else {
-            throw new ArithmeticException("Idade não permitida");
+            
+            throw new ArithmeticException("\n \nO periodo de teste acabou. Ative seu plano para continuar.\n\n");
         }
     }
     public static void main(String[] args) {
-        boolean autorizado = false;
-        try {
-            Scanner scnInput = new Scanner(System.in);
-            System.out.println("Digite sua idade");
-            short idadeDigitada = scnInput.nextShort();
-            verificarIdade(idadeDigitada);
-            scnInput.close();
-            autorizado = true;
-        } catch (Exception e) {
-            Scanner scnSair = new Scanner(System.in);
-            // System.err.println("Ocorreu o erro");
-            System.err.println("Digite enter para continuar");
-            scnSair.nextLine();
-            scnSair.close();
+        int minutoContado = 0;
+        int tempoTotal = 2;
+        int segundoContado = 0;
 
-        } finally{
-            if (autorizado == false) {
-                System.err.println("Favor Reiniciar o sistema");
+        while (minutoContado < tempoTotal) {
+            try{
+                System.out.println("Assistindo filme. Se passaram " + minutoContado + " minutos e "+ segundoContado + " segundos.");
+                Thread.sleep(100);
+                segundoContado++;
+                if (segundoContado == 60) {
+                    minutoContado++;
+                    segundoContado = 0;                  
+                    verificarTempo(minutoContado);
+                }
                 
-            } else {
-                System.out.println("Bem vindo.");
+            } catch (Exception e){
+                System.err.println(e.getMessage());
+            } finally {
+                if (minutoContado == 2){
+
+                    System.out.println("\n \nVocê assistiu todo o Tempo disponivel para o periodo de teste\n \n");
+                }
+                    
+                
 
             }
         }
+        
+
     }
 }
